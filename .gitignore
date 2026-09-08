@@ -1,0 +1,29 @@
+# Python bytecode and cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv_graph_ml/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Raw and processed data — never committed per project convention
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# PyTorch Geometric's own dataset cache (created by Planetoid, etc.)
+notebooks/data/
+
+# Model checkpoints and large outputs
+outputs/models/*
+!outputs/models/.gitkeep
+
+# macOS system files
+.DS_Store
+
+# Environment-specific
+.env

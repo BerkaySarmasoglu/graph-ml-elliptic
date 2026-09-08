@@ -1,0 +1,12 @@
+torch==2.14.0
+torch_geometric==2.8.0.post1
+scipy
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+jupyter
+ipywidgets
+pyyaml
+tqdm

@@ -1,0 +1,36 @@
+# Project-wide configuration for the Elliptic graph anomaly detection project
+
+paths:
+  raw_data_dir: "data/raw"
+  processed_data_dir: "data/processed"
+  figures_dir: "outputs/figures"
+  models_dir: "outputs/models"
+
+dataset:
+  name: "elliptic_bitcoin"
+  num_time_steps: 49
+  # Temporal split boundaries, following the standard convention for this dataset
+  train_time_steps: [1, 30]
+  val_time_steps: [31, 40]
+  test_time_steps: [41, 49]
+
+graph:
+  # Whether unknown-labeled nodes participate in message passing
+  # even though they are excluded from the loss computation
+  include_unknown_in_message_passing: true
+
+model:
+  architecture: "GraphSAGE"
+  hidden_channels: null      # to be determined during Phase 3 experimentation
+  num_layers: null
+  dropout: null
+
+training:
+  device: "cpu"              # deliberately fixed, see MPS support discussion
+  random_seed: 42
+  batch_size: null
+  learning_rate: null
+  num_epochs: null
+
+logging:
+  experiment_name: "elliptic_graphsage_v1"
