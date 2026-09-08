@@ -19,6 +19,19 @@ graph:
   # even though they are excluded from the loss computation
   include_unknown_in_message_passing: true
 
+preprocessing:
+  # Elliptic's released features are already z-score standardized by the
+  # dataset creators. This flag controls whether an additional RobustScaler
+  # pass (fit on the training split only) is applied on top of that. This is
+  # an ablation axis, not a fixed decision: both settings should be evaluated
+  # against the validation split during Phase 3, and only the winner carries
+  # forward to the sealed-test run.
+  additional_scaling:
+    enabled: null          # to be determined empirically in Phase 3
+    method: "robust"
+    fit_split: "train"
+
+
 model:
   architecture: "GraphSAGE"
   hidden_channels: null      # to be determined during Phase 3 experimentation
