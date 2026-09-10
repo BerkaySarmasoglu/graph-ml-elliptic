@@ -44,6 +44,7 @@ training:
   batch_size: null
   learning_rate: null
   num_epochs: null
+  weight_decay: 5.0e-4       # baseline default; L2 regularization strength, not yet tuned
 
 logging:
   experiment_name: "elliptic_graphsage_v1"
