@@ -27,24 +27,36 @@ preprocessing:
   # against the validation split during Phase 3, and only the winner carries
   # forward to the sealed-test run.
   additional_scaling:
-    enabled: null          # to be determined empirically in Phase 3
+    enabled: false          # RESOLVED in Phase 3: RobustScaler on top of the
+                            # already-standardized features degraded val F1
+                            # from 0.6267 to 0.4980; do not re-enable without
+                            # a new, separately justified experiment.
     method: "robust"
     fit_split: "train"
 
 
 model:
   architecture: "GraphSAGE"
-  hidden_channels: null      # to be determined during Phase 3 experimentation
-  num_layers: null
-  dropout: null
+  hidden_channels: 128       # RESOLVED in Phase 3 single-axis ablation
+  num_layers: 3              # RESOLVED in Phase 3 single-axis ablation
+  dropout: 0.3               # RESOLVED in Phase 3 single-axis ablation
+  decision_threshold: 0.60   # RESOLVED in Phase 3 threshold sweep;
+                             # F1-optimal, modest gain over default 0.50
 
 training:
-  device: "cpu"              # deliberately fixed, see MPS support discussion
+  device: "cpu"
   random_seed: 42
-  batch_size: null
-  learning_rate: null
-  num_epochs: null
-  weight_decay: 5.0e-4       # baseline default; L2 regularization strength, not yet tuned
+  batch_size: null            # intentionally null: full-batch training used
+                              # throughout (no mini-batch sampling), not an
+                              # unresolved decision
+  learning_rate: 0.01         # RESOLVED (never actually ablated; carried
+                              # over from Phase 2 baseline as-is)
+  num_epochs: 100             # RESOLVED (fixed budget used throughout;
+                              # not ablated)
+  weight_decay: 5.0e-4        # baseline default; never ablated
+  class_weight_scheme: "none" # RESOLVED in Phase 3: unweighted loss beat
+                              # inverse and sqrt-inverse weighting once the
+                              # architecture confound was corrected
 
 logging:
   experiment_name: "elliptic_graphsage_v1"
